@@ -39,6 +39,12 @@ struct IndicatorPanelView: View {
             }
             .chartYScale(domain: range)
             .frame(height: 120)
+            .chartXAxis {
+                AxisMarks(values: .automatic(desiredCount: 4)) { _ in
+                    AxisGridLine()
+                    AxisValueLabel(format: .dateTime.month(.twoDigits).day(.twoDigits))
+                }
+            }
             .chartOverlay { proxy in
                 GeometryReader { geo in
                     Rectangle().fill(.clear).contentShape(Rectangle())

@@ -76,8 +76,7 @@ struct StockDetailView: View {
                         .foregroundStyle(.gray.opacity(0.5))
                         .annotation(position: .top, alignment: .leading) {
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(candles[idx].timestamp, format: .dateTime.month().day().hour().minute())
-                                    .font(.caption2).foregroundStyle(.secondary)
+                                Text(candles[idx].timestamp, format: .dateTime.month(.twoDigits).day(.twoDigits).hour().minute())
                                 Text("Price \(candles[idx].close, format: .currency(code: "USD"))")
                                     .font(.caption.bold())
                                 if let upper = bb.upper[idx] {
@@ -101,6 +100,12 @@ struct StockDetailView: View {
             ])
             .chartLegend(position: .top, alignment: .leading)
             .frame(height: 220)
+            .chartXAxis {
+                AxisMarks(values: .automatic(desiredCount: 4)) { _ in
+                    AxisGridLine()
+                    AxisValueLabel(format: .dateTime.month(.twoDigits).day(.twoDigits))
+                }
+            }
             .chartOverlay { proxy in
                 GeometryReader { geo in
                     Rectangle().fill(.clear).contentShape(Rectangle())
@@ -157,6 +162,12 @@ struct StockDetailView: View {
             .chartForegroundStyleScale(["MACD": Color.blue, "Signal": Color.orange])
             .chartLegend(position: .top, alignment: .leading)
             .frame(height: 160)
+            .chartXAxis {
+                AxisMarks(values: .automatic(desiredCount: 4)) { _ in
+                    AxisGridLine()
+                    AxisValueLabel(format: .dateTime.month(.twoDigits).day(.twoDigits))
+                }
+            }
             .chartOverlay { proxy in
                 GeometryReader { geo in
                     Rectangle().fill(.clear).contentShape(Rectangle())
