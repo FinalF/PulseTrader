@@ -42,7 +42,8 @@ final class AlpacaMarketDataClient {
         components.queryItems = [
             URLQueryItem(name: "timeframe", value: timeframe),
             URLQueryItem(name: "limit", value: String(limit)),
-            URLQueryItem(name: "adjustment", value: "raw")
+            URLQueryItem(name: "adjustment", value: "raw"),
+            URLQueryItem(name: "feed", value: "iex")
         ]
 
         var request = URLRequest(url: components.url!)
