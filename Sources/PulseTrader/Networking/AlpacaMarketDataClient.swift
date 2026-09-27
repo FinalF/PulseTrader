@@ -39,11 +39,17 @@ final class AlpacaMarketDataClient {
             url: credentials.marketDataBaseURL.appendingPathComponent("/v2/stocks/\(symbol)/bars"),
             resolvingAgainstBaseURL: false
         )!
+        
+        let startDate = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
+        let startFormatter = ISO8601DateFormatter()
+        startFormatter.formatOptions = [.withInternetDateTime]
+        
         components.queryItems = [
             URLQueryItem(name: "timeframe", value: timeframe),
             URLQueryItem(name: "limit", value: String(limit)),
             URLQueryItem(name: "adjustment", value: "raw"),
-            URLQueryItem(name: "feed", value: "iex")
+            URLQueryItem(name: "feed", value: "iex"),
+            URLQueryItem(name: "start", value: startFormatter.string(from: startDate))
         ]
 
         var request = URLRequest(url: components.url!)
